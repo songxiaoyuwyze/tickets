@@ -1,0 +1,68 @@
+plugins {
+    alias(libs.plugins.android.application)
+	alias(libs.plugins.jetbrains.kotlin.android)
+}
+
+android {
+    namespace 'com.example.ffmpegaudioplayer'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.ffmpegaudioplayer"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+		externalNativeBuild{
+			cmake {
+				cppFlags "-std=c++11"
+			}
+			ndk{
+				abiFilters 'arm64-v8a'
+			}
+		}
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+    }
+	externalNativeBuild {
+		cmake {
+			path "CMakeLists.txt"
+		}
+	}
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+	buildFeatures {
+		viewBinding = true
+	}
+
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+	implementation libs.activity
+	implementation libs.constraintlayout
+	testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+	//network
+	implementation libs.retrofit
+	implementation libs.converter.gson
+	implementation libs.okhttp
+	implementation libs.okio
+	implementation libs.retrofit2.kotlin.coroutines.adapter
+
+}

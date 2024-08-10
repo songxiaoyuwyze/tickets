@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+	android:orientation="vertical">
+	<androidx.core.widget.NestedScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical">
+			<androidx.recyclerview.widget.RecyclerView
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toLeftOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				android:id="@+id/recyclerView"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+				app:spanCount="5"
+				tools:listitem="@layout/item_layout" />
+			<RelativeLayout
+				android:id="@+id/bottom"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				android:layout_width="match_parent"
+				android:layout_height="120dp"
+				android:padding="10dp">
+				<Button
+					android:id="@+id/btn1"
+					android:text="当前页面7-8"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="10dp"/>
+				<Button
+					android:id="@+id/btn2"
+					android:text="当前页面20-21"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:layout_alignParentRight="true"/>
+				<Button
+					android:id="@+id/btn3"
+					android:text="当前页面21-22"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:layout_alignParentBottom="true"/>
+
+				<Button
+					android:id="@+id/btn4"
+					android:text="当前选中"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:padding="10dp"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentBottom="true"/>
+
+				<Button
+					android:id="@+id/btn_setting"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentBottom="true"
+					android:layout_centerHorizontal="true"
+					android:text="设置"/>
+
+
+
+			</RelativeLayout>
+
+		</LinearLayout>
+	</androidx.core.widget.NestedScrollView>
+	<RelativeLayout
+		android:id="@+id/rl_loading"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<ProgressBar
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:visibility="gone"/>
+	</RelativeLayout>
+</RelativeLayout>
