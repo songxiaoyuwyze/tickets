@@ -87,6 +87,14 @@ class DayOfFragment(val offsetDay: Int) : Fragment() {
 							currentpos = getRealPosition(pos,it.data.spaceArray.size)
 							posSet.add(currentpos)
 //							it.data.items[currentpos]
+							lifecycleScope.launch {
+								response?.let {resp->
+									if (currentpos == -1) return@launch
+									val ids = mutableListOf<ReservationItem>()
+									ids.add(resp.data.items[currentpos])
+									createOrder(ids)
+								}
+							}
 						}
 					})
 
