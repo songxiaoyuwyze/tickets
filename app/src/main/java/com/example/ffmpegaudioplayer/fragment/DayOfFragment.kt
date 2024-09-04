@@ -31,9 +31,11 @@ import com.example.ffmpegaudioplayer.bean.ReservationResponse
 import com.example.ffmpegaudioplayer.databinding.FragmentDayBinding
 import com.example.ffmpegaudioplayer.network.ApiService
 import com.example.ffmpegaudioplayer.network.RetrofitUtils
+import com.example.ffmpegaudioplayer.utils.AppConfig
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -46,7 +48,17 @@ class DayOfFragment(val offsetDay: Int) : Fragment() {
 
 	var currentpos = -1
 	var posSet = hashSetOf<Int>()
-
+	//{
+	//	"openId": "oIVg65odcD8DsN5wfSFsho7s33aI",
+	//	"userName": "谢大帅",
+	//	"userPhone": "17710910821"
+	//}
+	//{
+	//	"openId": "oIVg65iUSLDKEPhcllKJV58lY-D0",
+	//	"reservationId": "1274772064187719714",
+	//	"userName": "吴京",
+	//	"userPhone": "15832003959"
+	//}
 	var openId = ""
 	var name = ""
 	var phoneNumber = ""
@@ -211,15 +223,25 @@ class DayOfFragment(val offsetDay: Int) : Fragment() {
 				withContext(Dispatchers.IO){
 					data.forEach {d ->
 						if (d.reservationStatus == 1){
-							val task = async {  apiService.createOrder(
-								OrderRequest(
-									openId = openId,
-									reservationId = d.reservationId,
-									userName = name,
-									userPhone = phoneNumber
-								)
-							) }
-							task.await()
+							AppConfig.userList.forEach { user->
+								val task = async {  apiService.createOrder(
+									OrderRequest(
+										openId = user.openId,
+										reservationId = d.reservationId,
+										userName = user.userName,
+										userPhone = user.userPhone
+									)
+								) }
+								task.await()
+//								if (result.status){
+//									AppConfig.userList.forEach {
+//										if (it.openId == result.data.prepayData.appId){
+//											it.hasVanue = true
+//											this.cancel()
+//										}
+//									}
+//								}
+							}
 						}
 					}
 			}
